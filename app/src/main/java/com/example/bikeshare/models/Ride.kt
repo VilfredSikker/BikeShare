@@ -1,4 +1,4 @@
-package com.example.bikesharev3.models
+package com.example.bikeshare.models
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey

@@ -1,4 +1,4 @@
-package com.example.bikesharev3.fragments
+package com.example.bikeshare.fragments
 
 
 import android.os.Bundle
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.bikesharev3.R
-import com.example.bikesharev3.models.RideRealm
+import com.example.bikeshare.R
+import com.example.bikeshare.models.RideRealm
 import kotlinx.android.synthetic.main.fragment_end_ride.*
 import java.util.*
 

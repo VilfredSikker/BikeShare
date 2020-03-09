@@ -1,14 +1,10 @@
-package com.example.bikesharev3
+package com.example.bikeshare
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
-import com.example.bikesharev3.fragments.EndRideFragment
-import com.example.bikesharev3.fragments.MainFragment
-import com.example.bikesharev3.fragments.StartRideFragment
+import com.example.bikeshare.fragments.MainFragment
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

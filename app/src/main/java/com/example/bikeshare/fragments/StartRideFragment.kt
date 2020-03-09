@@ -1,4 +1,4 @@
-package com.example.bikesharev3.fragments
+package com.example.bikeshare.fragments
 
 
 import android.app.AlertDialog
@@ -9,9 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 
-import com.example.bikesharev3.R
-import com.example.bikesharev3.models.Ride
-import com.example.bikesharev3.models.RideRealm
+import com.example.bikeshare.R
+import com.example.bikeshare.models.Ride
+import com.example.bikeshare.models.RideRealm
 import kotlinx.android.synthetic.main.fragment_start_ride.*
 import java.util.*
 

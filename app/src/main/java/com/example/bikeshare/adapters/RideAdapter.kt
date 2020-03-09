@@ -1,11 +1,11 @@
-package com.example.bikesharev3.adapters
+package com.example.bikeshare.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bikesharev3.R
-import com.example.bikesharev3.models.RideRealm
+import com.example.bikeshare.R
+import com.example.bikeshare.models.RideRealm
 
 class RideAdapter(var rides: RideRealm = RideRealm()) :
     RecyclerView.Adapter<RideAdapter.ViewHolder>() {
