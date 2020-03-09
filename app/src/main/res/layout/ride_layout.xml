@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4sp"
+    android:layout_marginBottom="4sp"
+    android:background="#00BD8888"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/ride_layout_bike_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bike_name" />
+
+    <TextView
+        android:id="@+id/ride_layout_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bike_location" />
+
+    <TextView
+        android:id="@+id/ride_layout_start_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ride_start_time" />
+
+    <TextView
+        android:id="@+id/ride_layout_end_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ride_end_time" />
+
+</LinearLayout>
