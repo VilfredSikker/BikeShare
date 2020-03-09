@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.bikeshare.R
+import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
 import kotlinx.android.synthetic.main.fragment_end_ride.*
 import java.util.*
@@ -29,18 +30,21 @@ class EndRideFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        if (this.rideRealm.activeRide()){
+        val currentRide = this.rideRealm.currentRide()
+
+        if (currentRide != null){
             println("Updating current bike")
-            updateViewWithCurrentBike()
+            updateViewWithCurrentBike(currentRide)
         }
 
         end_ride_button.setOnClickListener {
-            val currentRide = this.rideRealm.currentRide()
-
             if (currentRide != null){
-                currentRide.endTime = Calendar.getInstance().time
+                val time = Calendar.getInstance().time
 
-                this.rideRealm.updateRide(currentRide)
+
+                var newRide = currentRide
+                newRide.endTime = time
+                this.rideRealm.updateRide(newRide)
             }
 
             activity!!.supportFragmentManager
@@ -51,9 +55,8 @@ class EndRideFragment : Fragment() {
         }
     }
 
-    private fun updateViewWithCurrentBike() {
-        println("Updating")
-        bike_name.setText(this.rideRealm.currentRide()?.bikeName)
-        bike_location.setText(this.rideRealm.currentRide()?.location)
+    private fun updateViewWithCurrentBike(ride: Ride) {
+        bike_name.setText(ride.bikeName)
+        bike_location.setText(ride.location)
     }
 }
