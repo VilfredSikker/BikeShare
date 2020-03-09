@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val fragment = supportFragmentManager
             .findFragmentById(R.id.main_fragment)
 
-        if (fragment != null)
+        if (fragment == null)
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.main_fragment, MainFragment())
