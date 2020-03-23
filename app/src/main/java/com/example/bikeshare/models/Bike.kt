@@ -6,8 +6,8 @@ import io.realm.annotations.Required
 
 open class Bike(
     @PrimaryKey var id: Long = 0,
-    @Required var bikeType: String = "",
-    @Required var priceHour: Double = 0.0,
+    var bikeType: String = "",
+    var priceHour: Double = 0.0,
     var available: Boolean = true,
-    @Required var picture: ByteArray? = ByteArray(0)
+    var picture: ByteArray? = ByteArray(0)
     ) : RealmObject()

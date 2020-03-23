@@ -49,7 +49,7 @@ class EndRideFragment : Fragment() {
 
             activity!!.supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_fragment, MainFragment())
+                .replace(R.id.main_fragment, MainRideFragment())
                 .addToBackStack(null)
                 .commit()
         }

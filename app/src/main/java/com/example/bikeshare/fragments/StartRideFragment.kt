@@ -33,7 +33,7 @@ class StartRideFragment : Fragment() {
     private fun saveRide(bike : String, where : String) {
         val alertDialogBuilder = AlertDialog.Builder(activity).apply {
             setTitle("Save ride?")
-            setPositiveButton("Yes") { dialog, which ->
+            setPositiveButton("Yes") { _, _ ->
                 Toast.makeText(requireContext(), "Ride saved", Toast.LENGTH_LONG).show()
                 val ride = Ride()
                 ride.bikeName = bike
@@ -44,11 +44,11 @@ class StartRideFragment : Fragment() {
 
                 activity!!.supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_fragment, MainFragment())
+                    .replace(R.id.main_fragment, MainRideFragment())
                     .addToBackStack(null)
                     .commit()
             }
-            setNegativeButton("No"){dialog, which ->  }
+            setNegativeButton("No"){_ , _->  }
 
         }
 

@@ -15,9 +15,8 @@ import kotlinx.android.synthetic.main.fragment_main.*
 /**
  * A simple [Fragment] subclass.
  */
-class MainFragment : Fragment() {
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+class MainRideFragment : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +35,10 @@ class MainFragment : Fragment() {
         this.end_ride_button.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.main_fragment, EndRideFragment())?.commit()
         }
+
+        this.register_bike_button.setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.main_fragment, RegisterBikeFragment())?.commit()
+        }
     }
 
 
@@ -43,21 +46,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupListeners()
-        setupRecyclerView()
+
     }
 
-    override fun onResume() {
-        this.recyclerView.adapter = RideAdapter()
-        super.onResume()
-    }
-
-    private fun setupRecyclerView(){
-        this.viewAdapter = RideAdapter()
-        this.viewManager = LinearLayoutManager(activity)
-
-        this.recyclerView.apply {
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
-    }
 }

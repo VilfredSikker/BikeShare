@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_add_new"
+        android:title="@string/add_new"
+        android:icon="@drawable/ic_add" />
+    <item android:id="@+id/menu_all_rides"
+        android:title="@string/all_rides"
+        android:icon="@drawable/ic_ride" />
+    <item android:id="@+id/menu_wallet"
+        android:title="@string/my_wallet"
+        android:icon="@drawable/ic_money" />
+</menu>

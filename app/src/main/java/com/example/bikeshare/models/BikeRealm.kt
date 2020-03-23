@@ -8,7 +8,7 @@ import io.realm.kotlin.where
 open class BikeRealm{
     private val realm = Realm.getDefaultInstance()
 
-    fun createRide(bike: Bike){
+    fun createBike(bike: Bike){
         bike.id = nextIndex()
 
         this.realm.beginTransaction()
@@ -16,44 +16,53 @@ open class BikeRealm{
         this.realm.commitTransaction()
     }
 
-    fun activeRide() : Boolean {
-        val ride = currentRide()
-        if (ride != null){
-            return (ride.bikeName != "" && ride.location != "")
-        }
+    fun availableBike(id:Long) : Boolean {
+        val bike = getBike(id)
+        if (bike != null) return bike.available
         return false
     }
 
-    fun currentRide() : Ride? {
-        return realm.where<Ride>().sort("id", Sort.DESCENDING).findFirst()
-    }
+    fun toggleAvailable(id:Long) {
+        val bike = getBike(id)
 
-    fun updateRide(ride: Ride) {
-        this.realm.beginTransaction()
-        val realmRide = this.realm.where<Ride>().equalTo("id", ride.id).findFirst()
-        realmRide!!.endTime = ride.endTime
-        this.realm.commitTransaction()
-    }
-
-    fun deleteRide(id:Long) {
-        realm.executeTransactionAsync {
-            val ride = getRide(id)
-            ride!!.deleteFromRealm()
+        if (bike != null) {
+            this.realm.executeTransaction {
+                bike.available = !bike.available
+            }
         }
     }
 
-    fun getRides(): RealmResults<Ride> {
-        return realm.where<Ride>().findAll()
+    fun updateBike(bike: Bike) {
+        this.realm.beginTransaction()
+        val realmBike = this.realm.where<Bike>().equalTo("id", bike.id).findFirst()
+        realmBike!!.apply {
+            available = bike.available
+            priceHour = bike.priceHour
+            picture = bike.picture
+
+        }
+        this.realm.commitTransaction()
     }
 
-    private fun getRide(id : Long) : Ride? {
-        return this.realm.where<Ride>().equalTo("id", id).findFirst()
+    fun deleteBike(id:Long) {
+        realm.executeTransactionAsync {
+            val bike = getBike(id)
+            bike!!.deleteFromRealm()
+        }
+    }
+
+    fun getBikes(): RealmResults<Bike> {
+        return realm.where<Bike>().findAll()
+    }
+
+    private fun getBike(id : Long) : Bike? {
+        return this.realm.where<Bike>().equalTo("id", id).findFirst()
     }
 
     private fun nextIndex() : Long {
-        val ride = this.realm.where<Ride>().sort("id", Sort.DESCENDING).findFirst()
+        val bike = this.realm.where<Bike>().sort("id", Sort.DESCENDING).findFirst()
         // ?: = Elvis operator. If the value to the left of operator is not null, return, otherwise return value to the right
-        val index = ride?.id ?: 0
+        val index = bike?.id ?: 0
         return index + 1
     }
 }
