@@ -22,4 +22,6 @@
     <string name="ride_symbol">Ride symbol</string>
     <string name="money_symbol">Money symbol</string>
     <string name="time_symbol">Time symbol</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>

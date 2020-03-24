@@ -26,15 +26,11 @@ class MainRideFragment : Fragment() {
 
     private fun setupListeners() {
         this.start_ride_button.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.main_fragment, StartRideFragment())?.commit()
-        }
-
-        this.end_ride_button.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.main_fragment, EndRideFragment())?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, StartRideFragment())?.commit()
         }
 
         this.register_bike_button.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.main_fragment, RegisterBikeFragment())?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, RegisterBikeFragment())?.commit()
         }
     }
 
