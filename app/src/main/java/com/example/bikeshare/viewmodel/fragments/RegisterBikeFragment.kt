@@ -65,9 +65,9 @@ class RegisterBikeFragment : Fragment() {
 
             bikeRealm.createBike(bike)
 
-            this.fragmentManager?.beginTransaction().replace(R.id.content_fragment, MainRideFragment())
+            this.fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, MainRideFragment())
         } else {
-            Toast.makeText(this.requireContext(), "Couldn't save", Toast.LENGTH_LONG).show()
+            Toast.makeText(this.requireContext(), "Couldn't save. Make sure to give a type and price", Toast.LENGTH_LONG).show()
         }
     }
 
