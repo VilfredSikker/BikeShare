@@ -15,6 +15,7 @@ class RideAdapter(private var listener: (Ride) -> Unit) :
     class ViewHolder(inflater: LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.ride_layout, parent, false)) {
         var bikeName : TextView = itemView.findViewById(R.id.ride_layout_bike_name)
         var startTime : TextView = itemView.findViewById(R.id.ride_layout_start_time)
+        var priceHour : TextView = itemView.findViewById(R.id.bike_price)
 
         fun setOnClickListener(ride: Ride, listener: (Ride) -> Unit){
             itemView.setOnClickListener {
@@ -39,6 +40,7 @@ class RideAdapter(private var listener: (Ride) -> Unit) :
             println("onBindViewHolder: $itemCount")
             holder.bikeName.text = ride.bikeName
             holder.startTime.text = ride.startTime
+            holder.priceHour.text = ride.bikePriceHour.toString()
             holder.setOnClickListener(ride, listener)
         }
 

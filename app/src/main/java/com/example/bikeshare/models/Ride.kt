@@ -7,6 +7,7 @@ import java.util.*
 open class Ride(
     @PrimaryKey var id: Long = 0,
     var bikeName: String = "",
+    var bikePriceHour: Double = 0.0,
     var location : String = "",
     var startTime : String = "",
     var endTime : String? = ""

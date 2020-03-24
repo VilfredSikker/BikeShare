@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.example.bikeshare.R
 import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
+import kotlinx.android.synthetic.main.fragment_register_bike.*
 import kotlinx.android.synthetic.main.fragment_start_ride.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -32,7 +33,7 @@ class StartRideFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_start_ride, container, false)
     }
 
-    private fun saveRide(bike : String, where : String) {
+    private fun saveRide(bike : String, where : String, priceHour: Double) {
         val alertDialogBuilder = AlertDialog.Builder(activity).apply {
             setTitle("Save ride?")
             setPositiveButton("Yes") { _, _ ->
@@ -46,6 +47,7 @@ class StartRideFragment : Fragment() {
                 ride.bikeName = bike
                 ride.location = where
                 ride.startTime = formatted
+                ride.bikePriceHour = priceHour
 
                 rideRealm.createRide(ride)
 
@@ -68,9 +70,16 @@ class StartRideFragment : Fragment() {
         start_ride_button.setOnClickListener {
             val bike = bike_name.text.toString()
             val where = bike_location.text.toString()
+            val priceString = bike_price.text.toString()
+            var priceHour = -1.0
+            try {
+                priceHour = priceString.toDouble()
+            } catch (e: Error){
+                println("Can't format $priceString to double")
+            }
 
-            if (bike != "" && where != ""){
-                saveRide(bike, where)
+            if (bike != "" && where != "" && priceHour != -1.0){
+                saveRide(bike, where, priceHour)
             } else {
                 Toast.makeText(requireContext(), "Both Bike Name and Where is required", Toast.LENGTH_LONG).show()
             }
