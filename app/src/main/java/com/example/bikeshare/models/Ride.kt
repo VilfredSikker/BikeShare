@@ -8,15 +8,15 @@ open class Ride(
     @PrimaryKey var id: Long = 0,
     var bikeName: String = "",
     var location : String = "",
-    var startTime : Date = (Calendar.getInstance().time),
-    var endTime : Date? = null
+    var startTime : String = "",
+    var endTime : String? = ""
 ): RealmObject() {
 
-    fun changeStartTime(date: Date){
+    fun changeStartTime(date: String){
         startTime = date
     }
 
-    fun changeEndTime(date: Date){
+    fun changeEndTime(date: String){
         endTime = date
     }
 }

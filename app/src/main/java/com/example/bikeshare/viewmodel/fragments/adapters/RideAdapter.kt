@@ -14,9 +14,7 @@ class RideAdapter(private var listener: (Ride) -> Unit) :
 
     class ViewHolder(inflater: LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.ride_layout, parent, false)) {
         var bikeName : TextView = itemView.findViewById(R.id.ride_layout_bike_name)
-        var location : TextView = itemView.findViewById(R.id.ride_layout_location)
         var startTime : TextView = itemView.findViewById(R.id.ride_layout_start_time)
-        var endTime : TextView = itemView.findViewById(R.id.ride_layout_end_time)
 
         fun setOnClickListener(ride: Ride, listener: (Ride) -> Unit){
             itemView.setOnClickListener {
@@ -37,11 +35,12 @@ class RideAdapter(private var listener: (Ride) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ride = rides.getRides()[position]
-        println("onBindViewHolder: $itemCount")
-        holder.bikeName.text = ride?.bikeName
-        holder.location.text = ride?.location
-        holder.startTime.text = ride?.startTime.toString()
-        holder.endTime.text = ride!!.endTime.toString()
-        holder.setOnClickListener(ride, listener)
+        if (ride != null) {
+            println("onBindViewHolder: $itemCount")
+            holder.bikeName.text = ride.bikeName
+            holder.startTime.text = ride.startTime
+            holder.setOnClickListener(ride, listener)
+        }
+
     }
 }

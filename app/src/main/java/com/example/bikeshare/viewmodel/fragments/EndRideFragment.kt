@@ -10,6 +10,8 @@ import com.example.bikeshare.R
 import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
 import kotlinx.android.synthetic.main.fragment_end_ride.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 /**
@@ -39,11 +41,12 @@ class EndRideFragment : Fragment() {
 
         end_ride_button.setOnClickListener {
             if (currentRide != null){
-                val time = Calendar.getInstance().time
-
-
                 var newRide = currentRide
-                newRide.endTime = time
+                val current = LocalDateTime.now()
+
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                val formatted = current.format(formatter)
+                newRide.endTime = formatted
                 this.rideRealm.updateRide(newRide)
             }
 

@@ -1,20 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ride_list_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".viewmodel.fragments.RideListFragment"
-    android:id="@+id/ride_list_container"
+    android:orientation="vertical"
     >
+
+    <LinearLayout
+        android:id="@+id/ride_list_current"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:background="#E2D8D8"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Current Ride"
+            android:textSize="24sp">Current Ride
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/current_bike_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/bike_name" />
+
+            <TextView
+                android:id="@+id/current_bike_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/bike_location" />
+
+            <EditText
+                android:id="@+id/current_bike_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="time"
+                android:importantForAutofill="no" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/current_end_ride"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#5F70CC"
+            android:text="@string/end_ride" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
         android:background="#00A59898"
         android:paddingLeft="6sp"
         android:paddingRight="6sp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical">
 
-</FrameLayout>
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

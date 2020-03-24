@@ -13,6 +13,8 @@ import com.example.bikeshare.R
 import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
 import kotlinx.android.synthetic.main.fragment_start_ride.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 /**
@@ -36,9 +38,14 @@ class StartRideFragment : Fragment() {
             setPositiveButton("Yes") { _, _ ->
                 Toast.makeText(requireContext(), "Ride saved", Toast.LENGTH_LONG).show()
                 val ride = Ride()
+                val current = LocalDateTime.now()
+
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                val formatted = current.format(formatter)
+
                 ride.bikeName = bike
                 ride.location = where
-                ride.startTime = Calendar.getInstance().time
+                ride.startTime = formatted
 
                 rideRealm.createRide(ride)
 

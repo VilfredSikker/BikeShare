@@ -1,34 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4sp"
-    android:layout_marginBottom="4sp"
-    android:background="#00BD8888"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/round_corners"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/ride_layout_bike_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bike_name" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/ride_layout_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bike_location" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:contentDescription="@string/ride_symbol"
+            app:srcCompat="@drawable/ic_ride" />
 
-    <TextView
-        android:id="@+id/ride_layout_start_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ride_start_time" />
+        <TextView
+            android:id="@+id/ride_layout_bike_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8sp"
+            android:layout_weight="1"
+            android:text="@string/bike_name"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/ride_layout_end_time"
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ride_end_time" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5sp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:contentDescription="@string/money_symbol"
+            app:srcCompat="@drawable/ic_money" />
+
+        <TextView
+            android:id="@+id/ride_layout_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8sp"
+            android:layout_weight="1"
+            android:text="@string/bike_price"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5sp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/time_symbol"
+            app:srcCompat="@drawable/ic_time" />
+
+        <TextView
+            android:id="@+id/ride_layout_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8sp"
+            android:layout_weight="1"
+            android:text="@string/start_ride"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
 </LinearLayout>

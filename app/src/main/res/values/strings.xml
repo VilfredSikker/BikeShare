@@ -17,4 +17,9 @@
     <string name="add_new">Add new</string>
     <string name="all_rides">All Rides</string>
     <string name="my_wallet">My Wallet</string>
+    <string name="dollar">$</string>
+    <string name="arrow_right"><![CDATA[->]]></string>
+    <string name="ride_symbol">Ride symbol</string>
+    <string name="money_symbol">Money symbol</string>
+    <string name="time_symbol">Time symbol</string>
 </resources>
