@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            android:background="#00A89090"
             android:contentDescription="Bike picture"
             android:minWidth="200dp"
             android:minHeight="200dp"
@@ -32,10 +33,11 @@
             android:id="@+id/bike_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
             android:hint="@string/bike_price" />
 
         <Button
-            android:id="@+id/take_photo_button"
+            android:id="@+id/register_bike_take_photo_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"

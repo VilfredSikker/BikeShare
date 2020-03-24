@@ -2,7 +2,6 @@ package com.example.bikeshare.models
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
-import io.realm.annotations.Required
 
 open class Bike(
     @PrimaryKey var id: Long = 0,
