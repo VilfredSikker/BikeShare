@@ -1,4 +1,4 @@
-package com.example.bikeshare.fragments
+package com.example.bikeshare.viewmodel.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bikeshare.R
-import com.example.bikeshare.adapters.RideAdapter
+import com.example.bikeshare.viewmodel.fragments.adapters.RideAdapter
+import com.example.bikeshare.models.Ride
 import kotlinx.android.synthetic.main.fragment_ride_list.*
 
 class RideListFragment : Fragment() {
@@ -31,12 +32,16 @@ class RideListFragment : Fragment() {
     }
 
     private fun setupRecyclerView(){
-        this.viewAdapter = RideAdapter()
+        this.viewAdapter = RideAdapter { ride:Ride -> onRideClicked(ride)}
         this.viewManager = LinearLayoutManager(activity)
 
         this.recyclerView.apply {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+    }
+
+    private fun onRideClicked(ride: Ride) {
+        println(ride.bikeName)
     }
 }

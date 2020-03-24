@@ -1,4 +1,4 @@
-package com.example.bikeshare.fragments
+package com.example.bikeshare.viewmodel.fragments
 
 
 import android.app.AlertDialog

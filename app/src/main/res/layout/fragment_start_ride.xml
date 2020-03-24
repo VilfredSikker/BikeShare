@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.StartRideFragment"
+    tools:context=".viewmodel.fragments.StartRideFragment"
     android:id="@+id/start_ride_fragment">
 
     <LinearLayout

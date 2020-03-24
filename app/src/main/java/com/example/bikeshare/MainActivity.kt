@@ -1,15 +1,11 @@
 package com.example.bikeshare
 
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bikeshare.fragments.MainRideFragment
-import com.example.bikeshare.fragments.RideListFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.bikeshare.viewmodel.fragments.MainRideFragment
+import com.example.bikeshare.viewmodel.fragments.RideListFragment
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import kotlinx.android.synthetic.main.*
 import kotlinx.android.synthetic.main.activity_bikeshare_main.*
 
 class MainActivity : AppCompatActivity() {

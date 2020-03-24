@@ -1,21 +1,28 @@
-package com.example.bikeshare.adapters
+package com.example.bikeshare.viewmodel.fragments.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bikeshare.R
+import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
 
-class RideAdapter(var rides: RideRealm = RideRealm()) :
+class RideAdapter(private var listener: (Ride) -> Unit) :
     RecyclerView.Adapter<RideAdapter.ViewHolder>() {
-
+    private var rides : RideRealm = RideRealm()
 
     class ViewHolder(inflater: LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.ride_layout, parent, false)) {
         var bikeName : TextView = itemView.findViewById(R.id.ride_layout_bike_name)
         var location : TextView = itemView.findViewById(R.id.ride_layout_location)
         var startTime : TextView = itemView.findViewById(R.id.ride_layout_start_time)
         var endTime : TextView = itemView.findViewById(R.id.ride_layout_end_time)
+
+        fun setOnClickListener(ride: Ride, listener: (Ride) -> Unit){
+            itemView.setOnClickListener {
+                listener(ride)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
@@ -35,5 +42,6 @@ class RideAdapter(var rides: RideRealm = RideRealm()) :
         holder.location.text = ride?.location
         holder.startTime.text = ride?.startTime.toString()
         holder.endTime.text = ride!!.endTime.toString()
+        holder.setOnClickListener(ride, listener)
     }
 }

@@ -1,7 +1,5 @@
-package com.example.bikeshare.fragments
+package com.example.bikeshare.viewmodel.fragments
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
