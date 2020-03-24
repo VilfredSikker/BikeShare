@@ -25,10 +25,11 @@
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/colorLightBlue"
-            app:itemTextColor="@color/colorPrimaryDark"
+            android:background="@color/colorBlue"
+            app:itemTextColor="@menu/menu_item_color_state"
+            app:itemIconTint="@menu/menu_item_color_state"
             app:menu="@menu/menu_navigation_items"
+            app:itemTextAppearanceActive="@color/colorLightBlue"
             />
     </LinearLayout>
 

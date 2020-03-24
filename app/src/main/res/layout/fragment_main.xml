@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/end_ride_button"
-        android:text="@string/start_ride" />
+        android:text="@string/end_ride" />
 
     <Button
         android:layout_width="wrap_content"

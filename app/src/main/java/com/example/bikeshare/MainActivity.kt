@@ -44,21 +44,21 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_add_new -> {
                     this.supportFragmentManager
                         .beginTransaction()
-                        .add(R.id.content_fragment, MainRideFragment())
+                        .replace(R.id.content_fragment, MainRideFragment())
                         .commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.menu_all_rides -> {
                     this.supportFragmentManager
                         .beginTransaction()
-                        .add(R.id.content_fragment, RideListFragment())
+                        .replace(R.id.content_fragment, RideListFragment())
                         .commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.menu_wallet -> {
                     this.supportFragmentManager
                         .beginTransaction()
-                        .add(R.id.content_fragment, MainRideFragment())
+                        .replace(R.id.content_fragment, MainRideFragment())
                         .commit()
                     return@setOnNavigationItemSelectedListener true
                 }
