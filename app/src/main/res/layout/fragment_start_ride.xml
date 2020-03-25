@@ -15,17 +15,24 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bike_name"
-            android:hint="@string/bike_name"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/bike_location"
             android:hint="@string/bike_location"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/start_ride_bike_list"/>
+        </ScrollView>
+
         <Button
+            android:id="@+id/start_ride_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/start_ride_button"
-            android:text="@string/start_ride"/>
+            android:text="@string/start_ride" />
     </LinearLayout>
 </FrameLayout>

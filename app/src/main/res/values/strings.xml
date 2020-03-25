@@ -10,8 +10,8 @@
     <string name="ride_start_time">Ride Start Time</string>
     <string name="ride_end_time">Ride End Time</string>
     <string name="bike_location">Bike location</string>
-    <string name="bike_type">bike_type</string>
-    <string name="bike_price">bike price</string>
+    <string name="bike_type">Bike Type</string>
+    <string name="bike_price">Bike Price</string>
     <string name="take_bike_photo">Take bike photo</string>
     <string name="register_new_bike">Register new bike</string>
     <string name="add_new">Add new</string>
