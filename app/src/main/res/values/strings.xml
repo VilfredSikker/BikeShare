@@ -24,4 +24,6 @@
     <string name="time_symbol">Time symbol</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="selected_bike">Selected Bike</string>
+    <string name="available_bikes">Available Bikes</string>
 </resources>
