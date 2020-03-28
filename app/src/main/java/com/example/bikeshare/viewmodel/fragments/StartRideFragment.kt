@@ -152,11 +152,7 @@ class StartRideFragment : Fragment() {
 
                     rideRealm.createRide(ride)
 
-                    activity!!.supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_fragment, MainRideFragment())
-                        .addToBackStack(null)
-                        .commit()
+                    fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, MainRideFragment())?.commit()
                 }
                 setNegativeButton("No"){_ , _->  }
 
