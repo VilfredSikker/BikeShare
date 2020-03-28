@@ -55,7 +55,7 @@
                     android:id="@+id/start_ride_selected_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="none|textPersonName"
                     android:text="@string/bike_type" />
             </LinearLayout>
 
@@ -76,8 +76,8 @@
                     android:id="@+id/start_ride_selected_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
                     android:editable="false"
+                    android:inputType="none|textPersonName"
                     android:text="@string/bike_price" />
             </LinearLayout>
 
@@ -102,7 +102,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/start_ride_available_bikes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="350dp" />
     </LinearLayout>
 
     <LinearLayout

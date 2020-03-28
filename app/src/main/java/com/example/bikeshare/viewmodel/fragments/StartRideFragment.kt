@@ -76,8 +76,7 @@ class StartRideFragment : Fragment() {
                     if (location == null) {
                         requestLocation()
                     } else {
-                        currentLocation.latitude = location.latitude
-                        currentLocation.longitude = location.longitude
+                        currentLocation = location
                     }
 
                 }
@@ -98,11 +97,11 @@ class StartRideFragment : Fragment() {
             fastestInterval = 0
             numUpdates = 1
         }
+
         val callBack : LocationCallback = LocationHelper.getCurrentLocation(currentLocation)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
         fusedLocationClient!!.requestLocationUpdates(locationRequest, callBack, Looper.myLooper())
-
     }
 
     private fun setupListeners() {
@@ -123,6 +122,7 @@ class StartRideFragment : Fragment() {
     }
 
     private fun onBikeClicked(bike: Bike) {
+        println("Bike: $bike")
         selectedRide = bike
 
         var bitmap = BitmapFactory.decodeByteArray(bike.picture, 0 , bike.picture!!.size)

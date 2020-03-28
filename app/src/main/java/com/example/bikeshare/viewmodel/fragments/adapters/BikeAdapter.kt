@@ -36,7 +36,7 @@ public class BikeAdapter(private var listener:(Bike)->Unit) : RecyclerView.Adapt
         return bikeRealm.getBikes().size
     }
 
-    override fun onBindViewHolder(holder: BikeAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val bike = bikeRealm.getBikes()[position]
 
         if (bike != null) {
@@ -47,6 +47,7 @@ public class BikeAdapter(private var listener:(Bike)->Unit) : RecyclerView.Adapt
             }
             holder.price.text = bike.priceHour.toString()
             holder.type.text = bike.bikeType
+            holder.setOnBikeSelected(bike, listener)
         }
     }
 }
