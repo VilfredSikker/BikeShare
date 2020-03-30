@@ -73,13 +73,12 @@ class AllRidesFragment : Fragment() {
         view.ride_popop_start_time.setText(ride.startTime)
         view.ride_popop_end_time.setText(ride.endTime)
 
-        val itemIndex = rideRealm.getRides().indexOf(ride)
-        viewAdapter.notifyItemRemoved(itemIndex)
-
         view.ride_popop_cancel_button.setOnClickListener { popup.dismiss() }
         view.ride_popop_delete_button.setOnClickListener {
+            val itemIndex = rideRealm.getRides().indexOf(ride)
             rideRealm.deleteRide(ride.id)
             popup.dismiss()
+            viewAdapter.notifyItemRemoved(itemIndex)
         }
 
 
