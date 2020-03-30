@@ -39,7 +39,7 @@ class RegisterBikeFragment : Fragment() {
         this.register_bike_take_photo_button.setOnClickListener { dispatchTakePictureIntent() }
 
         this.register_bike_cancel_button.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, MainRideFragment())?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, AddNewFragment())?.commit()
         }
 
         this.register_bike_save_button.setOnClickListener {
@@ -65,7 +65,7 @@ class RegisterBikeFragment : Fragment() {
 
             bikeRealm.createBike(bike)
 
-            this.fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, MainRideFragment())?.commit()
+            this.fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, AddNewFragment())?.commit()
         } else {
             Toast.makeText(this.requireContext(), "Couldn't save. Make sure to give a type and price", Toast.LENGTH_LONG).show()
         }

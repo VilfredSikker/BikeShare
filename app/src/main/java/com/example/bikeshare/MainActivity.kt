@@ -2,7 +2,7 @@ package com.example.bikeshare
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bikeshare.viewmodel.fragments.MainRideFragment
+import com.example.bikeshare.viewmodel.fragments.AddNewFragment
 import com.example.bikeshare.viewmodel.fragments.RideListFragment
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         if (fragment == null)
             this.supportFragmentManager
                 .beginTransaction()
-                .add(R.id.content_fragment, MainRideFragment())
+                .add(R.id.content_fragment, AddNewFragment())
                 .commit()
 
         setupListeners()
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_add_new -> {
                     this.supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.content_fragment, MainRideFragment())
+                        .replace(R.id.content_fragment, AddNewFragment())
                         .commit()
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_wallet -> {
                     this.supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.content_fragment, MainRideFragment())
+                        .replace(R.id.content_fragment, AddNewFragment())
                         .commit()
                     return@setOnNavigationItemSelectedListener true
                 }

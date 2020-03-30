@@ -26,12 +26,9 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
-import kotlinx.android.synthetic.main.fragment_register_bike.*
 import kotlinx.android.synthetic.main.fragment_start_ride.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
-import java.util.jar.Manifest
 
 /**
  * A simple [Fragment] subclass.
@@ -107,7 +104,7 @@ class StartRideFragment : Fragment() {
     private fun setupListeners() {
         this.start_ride_start_button.setOnClickListener { saveRide() }
         this.start_ride_cancel_button.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, MainRideFragment())?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, AddNewFragment())?.commit()
         }
     }
 
@@ -152,7 +149,7 @@ class StartRideFragment : Fragment() {
 
                     rideRealm.createRide(ride)
 
-                    fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, MainRideFragment())?.commit()
+                    fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, AddNewFragment())?.commit()
                 }
                 setNegativeButton("No"){_ , _->  }
 
