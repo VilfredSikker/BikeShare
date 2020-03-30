@@ -26,8 +26,7 @@ public class BikeAdapter(private var listener:(Bike)->Unit) : RecyclerView.Adapt
         }
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BikeAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ViewHolder(inflater, parent)
     }

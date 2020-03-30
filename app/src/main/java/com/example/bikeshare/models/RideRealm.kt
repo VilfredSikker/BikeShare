@@ -19,7 +19,7 @@ open class RideRealm {
     fun activeRide() : Boolean {
         val ride = currentRide()
         if (ride != null){
-            return (ride.bikeName != "" && ride.location != "")
+            return (ride.bike?.bikeType != "" && ride.startLocation != "")
         }
         return false
     }
@@ -36,7 +36,7 @@ open class RideRealm {
     }
 
     fun deleteRide(id:Long) {
-        realm.executeTransactionAsync {
+        realm.executeTransaction {
             val ride = getRide(id)
             ride!!.deleteFromRealm()
         }

@@ -18,7 +18,7 @@ open class LocationHelper {
     companion object {
         private lateinit var locationCallback: LocationCallback
 
-        fun getCurrentLocation(location:Location): LocationCallback {
+        fun updateLocation(location:Location): LocationCallback {
             locationCallback = object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult?) {
                     super.onLocationResult(locationResult)

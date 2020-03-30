@@ -13,7 +13,7 @@ class RideAdapter(private var listener: (Ride) -> Unit) :
     private var rides : RideRealm = RideRealm()
 
     class ViewHolder(inflater: LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.ride_layout, parent, false)) {
-        var bikeName : TextView = itemView.findViewById(R.id.ride_layout_bike_name)
+        var bikeType : TextView = itemView.findViewById(R.id.ride_layout_bike_type)
         var startTime : TextView = itemView.findViewById(R.id.ride_layout_start_time)
         var priceHour : TextView = itemView.findViewById(R.id.ride_layout_price)
 
@@ -38,11 +38,10 @@ class RideAdapter(private var listener: (Ride) -> Unit) :
         val ride = rides.getRides()[position]
         if (ride != null) {
             println("onBindViewHolder: $itemCount")
-            holder.bikeName.text = ride.bikeName
+            holder.bikeType.text = ride.bike?.bikeType
             holder.startTime.text = ride.startTime
-            holder.priceHour.text = ride.bikePriceHour.toString()
+            holder.priceHour.text = ride.bike?.priceHour.toString()
             holder.setOnClickListener(ride, listener)
         }
-
     }
 }

@@ -27,12 +27,12 @@
             app:srcCompat="@drawable/ic_ride" />
 
         <TextView
-            android:id="@+id/ride_layout_bike_name"
+            android:id="@+id/ride_layout_bike_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8sp"
             android:layout_weight="1"
-            android:text="@string/bike_name"
+            android:text="@string/bike_type"
             android:textSize="18sp" />
 
     </LinearLayout>

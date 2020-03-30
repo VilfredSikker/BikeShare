@@ -38,7 +38,7 @@ class StartRideFragment : Fragment() {
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var selectedRide: Bike? = null
+    private var selectedBike: Bike? = null
 
     private lateinit var currentLocation:Location
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -67,7 +67,7 @@ class StartRideFragment : Fragment() {
         var context = this.requireContext()
         if (LocationHelper.checkPermissions(context)) {
             if (LocationHelper.isLocationEnabled(context)) {
-                fusedLocationClient.lastLocation.addOnCompleteListener() { task ->
+                fusedLocationClient.lastLocation.addOnCompleteListener { task ->
                     var location: Location? = task.result
 
                     if (location == null) {
@@ -95,7 +95,7 @@ class StartRideFragment : Fragment() {
             numUpdates = 1
         }
 
-        val callBack : LocationCallback = LocationHelper.getCurrentLocation(currentLocation)
+        val callBack : LocationCallback = LocationHelper.updateLocation(currentLocation)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
         fusedLocationClient!!.requestLocationUpdates(locationRequest, callBack, Looper.myLooper())
@@ -120,7 +120,7 @@ class StartRideFragment : Fragment() {
 
     private fun onBikeClicked(bike: Bike) {
         println("Bike: $bike")
-        selectedRide = bike
+        selectedBike = bike
 
         var bitmap = BitmapFactory.decodeByteArray(bike.picture, 0 , bike.picture!!.size)
 
@@ -130,39 +130,32 @@ class StartRideFragment : Fragment() {
     }
 
     private fun saveRide() {
-        if (selectedRide != null) {
+        if (selectedBike != null) {
             val alertDialogBuilder = AlertDialog.Builder(activity).apply {
                 setTitle("Save ride?")
                 setPositiveButton("Yes") { _, _ ->
                     Toast.makeText(requireContext(), "Ride saved", Toast.LENGTH_LONG).show()
-                    val selected = selectedRide
 
                     val ride = Ride()
                     val current = LocalDateTime.now()
 
                     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                     val formatted = current.format(formatter)
+                    val location = "lat: ${currentLocation.latitude}, lng: ${currentLocation.longitude}"
 
                     ride.startTime = formatted
-                    ride.bikePriceHour = selected!!.priceHour
-                    ride.location = currentLocation.toString()
+                    ride.bike = selectedBike as Bike
+                    ride.startLocation = location
 
                     rideRealm.createRide(ride)
 
                     fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, AddNewFragment())?.commit()
                 }
                 setNegativeButton("No"){_ , _->  }
-
             }
 
             val dialog = alertDialogBuilder.create()
             dialog.show()
         }
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-
     }
 }

@@ -3,7 +3,7 @@ package com.example.bikeshare
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bikeshare.viewmodel.fragments.AddNewFragment
-import com.example.bikeshare.viewmodel.fragments.RideListFragment
+import com.example.bikeshare.viewmodel.fragments.AllRidesFragment
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_bikeshare_main.*
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_all_rides -> {
                     this.supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.content_fragment, RideListFragment())
+                        .replace(R.id.content_fragment, AllRidesFragment())
                         .commit()
                     return@setOnNavigationItemSelectedListener true
                 }
