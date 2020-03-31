@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bikeshare.R
+import com.example.bikeshare.models.Bike
 import com.example.bikeshare.viewmodel.fragments.adapters.RideAdapter
 import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
@@ -38,6 +39,36 @@ class AllRidesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupCurrentRideView()
+    }
+
+    private fun setupCurrentRideView() {
+        val currentRide = rideRealm.currentRide()
+        if (currentRide != null) {
+            this.all_rides_ride_type.setText(currentRide.bike?.bikeType)
+            this.all_rides_ride_start_time.setText(currentRide.startTime)
+            this.all_rides_ride_price.setText(currentRide.bike?.priceHour.toString())
+
+            this.all_rides_ride_end_ride.setOnClickListener {
+                rideRealm.toggleAvailable(currentRide)
+                setCurrentRideInvisible()
+                val itemIndex = rideRealm.getRides().indexOf(currentRide)
+                this.viewAdapter.notifyItemChanged(itemIndex)
+            }
+        } else {
+            setCurrentRideInvisible()
+        }
+    }
+
+    private fun setCurrentRideInvisible() {
+        this.all_rides_current_ride_header.text = "No current ride"
+        this.all_rides_ride_type.visibility = View.INVISIBLE
+        this.all_rides_ride_start_time.visibility = View.INVISIBLE
+        this.all_rides_ride_price.visibility = View.INVISIBLE
+        this.all_rides_ride_price_header.visibility = View.INVISIBLE
+        this.all_rides_ride_start_time_header.visibility = View.INVISIBLE
+        this.all_rides_ride_type_header.visibility = View.INVISIBLE
+        this.all_rides_ride_end_ride.visibility = View.INVISIBLE
     }
 
     private fun setupRecyclerView(){

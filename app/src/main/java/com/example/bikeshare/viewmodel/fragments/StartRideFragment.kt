@@ -130,32 +130,40 @@ class StartRideFragment : Fragment() {
     }
 
     private fun saveRide() {
+        val alreadyActiveRide = rideRealm.currentRide()
         if (selectedBike != null) {
-            val alertDialogBuilder = AlertDialog.Builder(activity).apply {
-                setTitle("Save ride?")
-                setPositiveButton("Yes") { _, _ ->
-                    Toast.makeText(requireContext(), "Ride saved", Toast.LENGTH_LONG).show()
+            if (alreadyActiveRide != null) {
+                Toast.makeText(this.requireContext(), "You have an active ride", Toast.LENGTH_SHORT).show()
+            } else {
+                val alertDialogBuilder = AlertDialog.Builder(activity).apply {
+                    setTitle("Save ride?")
+                    setPositiveButton("Yes") { _, _ ->
+                        Toast.makeText(requireContext(), "Ride saved", Toast.LENGTH_LONG).show()
 
-                    val ride = Ride()
-                    val current = LocalDateTime.now()
+                        val ride = Ride()
+                        val current = LocalDateTime.now()
 
-                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                    val formatted = current.format(formatter)
-                    val location = "lat: ${currentLocation.latitude}, lng: ${currentLocation.longitude}"
+                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                        val formatted = current.format(formatter)
+                        val location = "lat: ${currentLocation.latitude}, lng: ${currentLocation.longitude}"
 
-                    ride.startTime = formatted
-                    ride.bike = selectedBike as Bike
-                    ride.startLocation = location
 
-                    rideRealm.createRide(ride)
+                        ride.startTime = formatted
+                        ride.bike = selectedBike as Bike
+                        ride.startLocation = location
 
-                    fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, AddNewFragment())?.commit()
+                        rideRealm.createRide(ride)
+
+                        fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, AddNewFragment())?.commit()
+                    }
+                    setNegativeButton("No"){_ , _->  }
                 }
-                setNegativeButton("No"){_ , _->  }
-            }
 
-            val dialog = alertDialogBuilder.create()
-            dialog.show()
+                val dialog = alertDialogBuilder.create()
+                dialog.show()
+            }
+        } else {
+            Toast.makeText(this.requireContext(), "Select a bike", Toast.LENGTH_SHORT).show()
         }
     }
 }

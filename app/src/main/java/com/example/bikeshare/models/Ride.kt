@@ -10,7 +10,8 @@ open class Ride(
     var startLocation : String = "",
     var endLocation : String = "",
     var startTime : String = "",
-    var endTime : String? = ""
+    var endTime : String? = "",
+    var active: Boolean = true
 ): RealmObject() {
 
     fun changeStartTime(date: String){

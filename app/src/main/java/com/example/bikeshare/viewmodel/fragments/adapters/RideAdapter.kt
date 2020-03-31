@@ -35,7 +35,7 @@ class RideAdapter(private var listener: (Ride) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ride = rides.getRides()[position]
+        val ride = rides.getAvailableRides()[position]
         if (ride != null) {
             println("onBindViewHolder: $itemCount")
             holder.bikeType.text = ride.bike?.bikeType
