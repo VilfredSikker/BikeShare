@@ -30,6 +30,7 @@ class AllRidesFragment : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private var rideRealm: RideRealm = RideRealm()
+    private lateinit var locationHelper: LocationHelper
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var PERMISSION_ID: Int = 42
 
@@ -39,6 +40,7 @@ class AllRidesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+        locationHelper = LocationHelper(requireActivity())
         return inflater.inflate(R.layout.fragment_all_rides, container, false)
     }
 
@@ -62,7 +64,10 @@ class AllRidesFragment : Fragment() {
                 newRide.bike = currentRide.bike
                 newRide.id = currentRide.id
                 newRide.active = false
-                newRide.endLocation = LocationHelper.formatLocation(LocationHelper.getCurrentLocation(requireContext(), fusedLocationClient, requireActivity(), PERMISSION_ID))
+
+                locationHelper.getCurrentLocation(requireContext(), PERMISSION_ID)
+                newRide.endLocation = locationHelper.getAddress()
+
                 newRide.endTime = TimeHelper.getCurrentTime()
 
                 rideRealm.updateRide(newRide)

@@ -40,6 +40,7 @@ class StartRideFragment : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private var selectedBike: Bike? = null
+    private lateinit var locationHelper:LocationHelper
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     val PERMISSION_ID = 42
@@ -51,7 +52,7 @@ class StartRideFragment : Fragment() {
     ): View? {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
-
+        locationHelper = LocationHelper(requireActivity())
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_start_ride, container, false)
     }
@@ -60,7 +61,12 @@ class StartRideFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupListeners()
-        LocationHelper.getCurrentLocation(this.requireContext(), this.fusedLocationClient, this.requireActivity(), PERMISSION_ID)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        locationHelper.getCurrentLocation(requireContext(), PERMISSION_ID)
     }
 
     private fun setupListeners() {
@@ -106,7 +112,7 @@ class StartRideFragment : Fragment() {
 
                         ride.startTime = TimeHelper.getCurrentTime()
                         ride.bike = selectedBike as Bike
-                        ride.startLocation = LocationHelper.formatLocation(LocationHelper.getCurrentLocation(requireContext(), fusedLocationClient, requireActivity(), PERMISSION_ID))
+                        ride.startLocation = locationHelper.getAddress()
 
                         rideRealm.createRide(ride)
 
