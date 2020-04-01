@@ -14,10 +14,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bikeshare.R
+import com.example.bikeshare.helpers.LocationHelper
+import com.example.bikeshare.helpers.TimeHelper
 import com.example.bikeshare.models.Bike
 import com.example.bikeshare.viewmodel.fragments.adapters.RideAdapter
 import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_all_rides.*
 import kotlinx.android.synthetic.main.fragment_ride_popop.*
 import kotlinx.android.synthetic.main.fragment_ride_popop.view.*
@@ -26,13 +30,15 @@ class AllRidesFragment : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private var rideRealm: RideRealm = RideRealm()
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var PERMISSION_ID: Int = 42
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
         return inflater.inflate(R.layout.fragment_all_rides, container, false)
     }
 
@@ -50,9 +56,19 @@ class AllRidesFragment : Fragment() {
             this.all_rides_ride_price.setText(currentRide.bike?.priceHour.toString())
 
             this.all_rides_ride_end_ride.setOnClickListener {
-                rideRealm.toggleAvailable(currentRide)
+                val newRide = Ride()
+                newRide.startTime = currentRide.startTime
+                newRide.startLocation = currentRide.startLocation
+                newRide.bike = currentRide.bike
+                newRide.id = currentRide.id
+                newRide.active = false
+                newRide.endLocation = LocationHelper.formatLocation(LocationHelper.getCurrentLocation(requireContext(), fusedLocationClient, requireActivity(), PERMISSION_ID))
+                newRide.endTime = TimeHelper.getCurrentTime()
+
+                rideRealm.updateRide(newRide)
+
                 setCurrentRideInvisible()
-                val itemIndex = rideRealm.getRides().indexOf(currentRide)
+                val itemIndex = rideRealm.getRides().indexOf(newRide)
                 this.viewAdapter.notifyItemChanged(itemIndex)
             }
         } else {

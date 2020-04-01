@@ -32,11 +32,11 @@ public class BikeAdapter(private var listener:(Bike)->Unit) : RecyclerView.Adapt
     }
 
     override fun getItemCount(): Int {
-        return bikeRealm.getBikes().size
+        return bikeRealm.getAvailabledBikes().size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val bike = bikeRealm.getBikes()[position]
+        val bike = bikeRealm.getAvailabledBikes()[position]
 
         if (bike != null) {
             if (bike.picture != null)

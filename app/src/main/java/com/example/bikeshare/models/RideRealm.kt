@@ -20,20 +20,17 @@ open class RideRealm {
         return realm.where<Ride>().equalTo("active", true).findFirst()
     }
 
-    fun updateRide(ride: Ride) {
-        val realmRide = this.realm.where<Ride>().equalTo("id", ride.id).findFirst()
-        if (realmRide != null) {
-            this.realm.executeTransaction{
-                this.realm.insertOrUpdate(ride)
-            }
-        }
-    }
-
     fun toggleAvailable(ride: Ride) {
         this.realm.executeTransaction{
             val realmBike = this.realm.where<Ride>().equalTo("id", ride.id).findFirst()
             val active = realmBike?.active!!.not()
             realmBike.active = active
+        }
+    }
+
+    fun updateRide(ride: Ride) {
+        realm.executeTransaction {
+            realm.insertOrUpdate(ride)
         }
     }
 
@@ -48,8 +45,8 @@ open class RideRealm {
         return realm.where<Ride>().findAll()
     }
 
-    fun getAvailableRides(): RealmResults<Ride> {
-        return realm.where<Ride>().equalTo("bike.available", true).findAll()
+    fun getPreviousRides(): RealmResults<Ride> {
+        return realm.where<Ride>().notEqualTo("active", true).findAll()
     }
 
     private fun getRide(id : Long) : Ride? {

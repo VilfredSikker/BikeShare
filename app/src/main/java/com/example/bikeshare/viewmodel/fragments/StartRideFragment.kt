@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.example.bikeshare.R
 import com.example.bikeshare.helpers.LocationHelper
+import com.example.bikeshare.helpers.TimeHelper
 import com.example.bikeshare.models.Bike
 import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
@@ -40,7 +41,6 @@ class StartRideFragment : Fragment() {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private var selectedBike: Bike? = null
 
-    private lateinit var currentLocation:Location
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     val PERMISSION_ID = 42
 
@@ -60,45 +60,7 @@ class StartRideFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupListeners()
-        getCurrentLocation()
-    }
-
-    private fun getCurrentLocation(){
-        var context = this.requireContext()
-        if (LocationHelper.checkPermissions(context)) {
-            if (LocationHelper.isLocationEnabled(context)) {
-                fusedLocationClient.lastLocation.addOnCompleteListener { task ->
-                    var location: Location? = task.result
-
-                    if (location == null) {
-                        requestLocation()
-                    } else {
-                        currentLocation = location
-                    }
-
-                }
-            } else {
-                Toast.makeText(this.requireContext(), "Turn on location", Toast.LENGTH_LONG).show()
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            }
-        } else {
-            LocationHelper.requestPermissions(this.requireActivity(), PERMISSION_ID)
-        }
-    }
-
-    private fun requestLocation() {
-        val locationRequest = LocationRequest().apply {
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 0
-            fastestInterval = 0
-            numUpdates = 1
-        }
-
-        val callBack : LocationCallback = LocationHelper.updateLocation(currentLocation)
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
-        fusedLocationClient!!.requestLocationUpdates(locationRequest, callBack, Looper.myLooper())
+        LocationHelper.getCurrentLocation(this.requireContext(), this.fusedLocationClient, this.requireActivity(), PERMISSION_ID)
     }
 
     private fun setupListeners() {
@@ -141,16 +103,10 @@ class StartRideFragment : Fragment() {
                         Toast.makeText(requireContext(), "Ride saved", Toast.LENGTH_LONG).show()
 
                         val ride = Ride()
-                        val current = LocalDateTime.now()
 
-                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                        val formatted = current.format(formatter)
-                        val location = "lat: ${currentLocation.latitude}, lng: ${currentLocation.longitude}"
-
-
-                        ride.startTime = formatted
+                        ride.startTime = TimeHelper.getCurrentTime()
                         ride.bike = selectedBike as Bike
-                        ride.startLocation = location
+                        ride.startLocation = LocationHelper.formatLocation(LocationHelper.getCurrentLocation(requireContext(), fusedLocationClient, requireActivity(), PERMISSION_ID))
 
                         rideRealm.createRide(ride)
 

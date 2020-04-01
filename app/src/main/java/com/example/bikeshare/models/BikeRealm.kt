@@ -55,6 +55,10 @@ open class BikeRealm{
         return realm.where<Bike>().findAll()
     }
 
+    fun getAvailabledBikes(): RealmResults<Bike> {
+        return realm.where<Bike>().equalTo("available", true).findAll()
+    }
+
     private fun getBike(id : Long) : Bike? {
         return this.realm.where<Bike>().equalTo("id", id).findFirst()
     }
