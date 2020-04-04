@@ -16,20 +16,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bikeshare.R
 import com.example.bikeshare.helpers.LocationHelper
 import com.example.bikeshare.helpers.TimeHelper
-import com.example.bikeshare.models.Bike
+import com.example.bikeshare.models.BikeRealm
 import com.example.bikeshare.viewmodel.fragments.adapters.RideAdapter
 import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_all_rides.*
-import kotlinx.android.synthetic.main.fragment_ride_popop.*
 import kotlinx.android.synthetic.main.fragment_ride_popop.view.*
 
 class AllRidesFragment : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private var rideRealm: RideRealm = RideRealm()
+    private var bikeRealm: BikeRealm = BikeRealm()
     private lateinit var locationHelper: LocationHelper
 
     override fun onCreateView(
@@ -66,16 +64,14 @@ class AllRidesFragment : Fragment() {
                 newRide.bike = currentRide.bike
                 newRide.id = currentRide.id
                 newRide.active = false
-
                 newRide.endLocation = locationHelper.getAddress()
-
                 newRide.endTime = TimeHelper.getCurrentTime()
 
                 rideRealm.updateRide(newRide)
-
+                bikeRealm.toggleAvailable(newRide.bike!!.id)
                 setCurrentRideInvisible()
-                val itemIndex = rideRealm.getRides().indexOf(newRide)
-                this.viewAdapter.notifyItemChanged(itemIndex)
+                val itemIndex = rideRealm.getPreviousRides().indexOf(newRide)
+                this.viewAdapter.notifyItemInserted(itemIndex)
             }
         } else {
             setCurrentRideInvisible()

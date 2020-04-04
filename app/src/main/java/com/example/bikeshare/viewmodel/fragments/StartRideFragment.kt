@@ -20,6 +20,7 @@ import com.example.bikeshare.R
 import com.example.bikeshare.helpers.LocationHelper
 import com.example.bikeshare.helpers.TimeHelper
 import com.example.bikeshare.models.Bike
+import com.example.bikeshare.models.BikeRealm
 import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
 import com.example.bikeshare.viewmodel.fragments.adapters.BikeAdapter
@@ -36,6 +37,7 @@ import java.time.format.DateTimeFormatter
  */
 class StartRideFragment : Fragment() {
     private var rideRealm: RideRealm = RideRealm()
+    private var bikeRealm: BikeRealm = BikeRealm()
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -103,13 +105,12 @@ class StartRideFragment : Fragment() {
                         Toast.makeText(requireContext(), "Ride saved", Toast.LENGTH_LONG).show()
 
                         val ride = Ride()
-
                         ride.startTime = TimeHelper.getCurrentTime()
                         ride.bike = selectedBike as Bike
                         ride.startLocation = locationHelper.getAddress()
 
                         rideRealm.createRide(ride)
-
+                        bikeRealm.toggleAvailable(ride.bike!!.id)
                         fragmentManager?.beginTransaction()?.replace(R.id.content_fragment, AddNewFragment())?.commit()
                     }
                     setNegativeButton("No"){_ , _->  }

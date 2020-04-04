@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         Realm.init(this)
 
         var config = RealmConfiguration.Builder()
-            .name("bikesharerealm.realm")
+            .name("bikeshare")
             .deleteRealmIfMigrationNeeded()
             .build()
 

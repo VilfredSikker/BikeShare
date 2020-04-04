@@ -20,7 +20,7 @@ open class RideRealm {
         return realm.where<Ride>().equalTo("active", true).findFirst()
     }
 
-    fun toggleAvailable(ride: Ride) {
+    fun toggleActive(ride: Ride) {
         this.realm.executeTransaction{
             val realmBike = this.realm.where<Ride>().equalTo("id", ride.id).findFirst()
             val active = realmBike?.active!!.not()
@@ -46,7 +46,7 @@ open class RideRealm {
     }
 
     fun getPreviousRides(): RealmResults<Ride> {
-        return realm.where<Ride>().notEqualTo("active", true).findAll()
+        return realm.where<Ride>().equalTo("active", false).findAll()
     }
 
     private fun getRide(id : Long) : Ride? {
