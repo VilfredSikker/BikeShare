@@ -42,17 +42,12 @@ class StartRideFragment : Fragment() {
     private var selectedBike: Bike? = null
     private lateinit var locationHelper:LocationHelper
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    val PERMISSION_ID = 42
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
-        locationHelper = LocationHelper(requireActivity())
+        locationHelper = LocationHelper(requireActivity(), requireContext())
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_start_ride, container, false)
     }
@@ -61,12 +56,11 @@ class StartRideFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupListeners()
-
     }
 
     override fun onResume() {
         super.onResume()
-        locationHelper.getCurrentLocation(requireContext(), PERMISSION_ID)
+        locationHelper.startLocationUpdates()
     }
 
     private fun setupListeners() {

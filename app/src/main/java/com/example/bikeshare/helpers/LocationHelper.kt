@@ -8,36 +8,39 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
-import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Bundle
-import android.os.Looper
 import android.provider.Settings
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.google.android.gms.location.*
+import java.lang.Exception
 import java.util.*
 
-open class LocationHelper(val activity: Activity) : LocationListener {
-    private lateinit var locationCallback: LocationCallback
-    var locationManager: LocationManager? = this.activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+open class LocationHelper(private val activity: Activity, private val context: Context) {
 
-    lateinit var currentLocation: Location
+    companion object {
+        private const val PERMISSION_ID: Int = 42
+        private const val UPDATE_INTERVAL = 5000L
+        private const val FASTEST_INTERVAL = 5000L
+    }
 
-    private fun updateLocation(): LocationCallback {
+    private var locationCallback: LocationCallback
+    private var fusedLocationProviderClient: FusedLocationProviderClient = LocationServices
+        .getFusedLocationProviderClient(context!!)
+
+    var lat = 0.0
+    var lng = 0.0
+
+    init {
         locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
-                super.onLocationResult(locationResult)
-                val lat = locationResult!!.lastLocation.latitude
-                val lng = locationResult.lastLocation.longitude
-
-                currentLocation.latitude = lat
-                currentLocation.longitude = lng
+            override fun onLocationResult(locationResult: LocationResult) {
+                for (location in locationResult.locations) {
+                    lat = location.longitude
+                    lng= location.latitude
+                }
             }
         }
-
-        return locationCallback
     }
 
     fun formatLocation(location: Location?) : String {
@@ -46,89 +49,79 @@ open class LocationHelper(val activity: Activity) : LocationListener {
 
     fun getAddress(): String {
         val geoCoder = Geocoder(this.activity, Locale.getDefault())
-        val addresses: List<Address>
+        val stringBuilder = StringBuilder()
 
-        addresses = geoCoder.getFromLocation(
-            this.currentLocation.latitude,
-            this.currentLocation.longitude,
-            1
-        )
+        try {
+            val addresses: List<Address> =
+                geoCoder.getFromLocation(lat, lng, 1)
 
-        return addresses[0].getAddressLine(0)
-    }
-
-    fun getCurrentLocation(context: Context, permission_id: Int) {
-        if (checkPermissions(context)) {
-            if (isLocationEnabled(context)) {
-                try {
-                    locationManager!!.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 5f, this)
-                    val location = locationManager!!.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                    this.currentLocation = location
-
-                } catch (e: SecurityException) {
-                    e.printStackTrace()
+            if (addresses.isNotEmpty()) {
+                val address = addresses[0]
+                stringBuilder.apply {
+                    append(address.getAddressLine(0)).append("\n")
+                    append(address.locality).append("\n")
+                    append(address.postalCode).append("\n")
                 }
             } else {
-                Toast.makeText(context, "Turn on location", Toast.LENGTH_LONG).show()
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(context, intent, null)
+                stringBuilder.apply {
+                    append("lat: $lat").append("\n")
+                    append("lng: $lng").append("\n")
+                }
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return stringBuilder.toString()
+    }
+
+    fun startLocationUpdates(){
+        if (!hasPermission())
+            requestPermissions()
+
+        if (isLocationEnabled()) {
+            val locationRequest = LocationRequest().apply {
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                interval = UPDATE_INTERVAL
+                fastestInterval = FASTEST_INTERVAL
+            }
+
+            fusedLocationProviderClient.requestLocationUpdates(
+                locationRequest, locationCallback, null
+            )
         } else {
-            requestPermissions(activity, permission_id)
+            Toast.makeText(context, "Turn on location", Toast.LENGTH_LONG).show()
+            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(context, intent, null)
         }
     }
 
-    fun requestLocation() {
-        val locationRequest = LocationRequest().apply {
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 0
-            fastestInterval = 0
-            numUpdates = 1
-        }
-
-        val callBack : LocationCallback = updateLocation()
-
-        val locationClient = LocationServices.getFusedLocationProviderClient(activity)
-        locationClient!!.requestLocationUpdates(locationRequest, callBack, Looper.myLooper())
+    private fun stopLocationUpdates() {
+        fusedLocationProviderClient
+            .removeLocationUpdates(locationCallback)
     }
 
-    private fun checkPermissions(context: Context): Boolean {
+    private fun hasPermission(): Boolean {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             return true
         }
+
         return false
     }
 
-    private fun isLocationEnabled(context: Context): Boolean {
-        var locationManager: LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
     }
 
-    private fun requestPermissions(activity: Activity, PERMISSION_ID: Int) {
+    private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             activity,
             arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
             PERMISSION_ID
         )
-    }
-
-
-    override fun onLocationChanged(location: Location?) {
-                
-    }
-
-    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-
-    }
-
-    override fun onProviderEnabled(provider: String?) {
-
-    }
-
-    override fun onProviderDisabled(provider: String?) {
-
     }
 }
