@@ -29,11 +29,23 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bike_type" />
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/bike_price" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bike_price" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cost" />
+            </LinearLayout>
 
         </TableRow>
 
@@ -48,12 +60,26 @@
                 android:inputType="textPersonName"
                 android:text="@string/bike_type" />
 
-            <EditText
-                android:id="@+id/ride_popop_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:text="@string/bike_price" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/ride_popop_price"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:text="@string/bike_price" />
+
+                <EditText
+                    android:id="@+id/ride_popop_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:text="Cost" />
+            </LinearLayout>
+
         </TableRow>
 
         <TableRow

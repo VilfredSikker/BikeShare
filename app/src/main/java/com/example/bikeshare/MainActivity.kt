@@ -6,6 +6,7 @@ import com.example.bikeshare.models.Wallet
 import com.example.bikeshare.models.WalletRealm
 import com.example.bikeshare.viewmodel.fragments.AddNewFragment
 import com.example.bikeshare.viewmodel.fragments.AllRidesFragment
+import com.example.bikeshare.viewmodel.fragments.WalletFragment
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_bikeshare_main.*
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_wallet -> {
                     this.supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.content_fragment, AddNewFragment())
+                        .replace(R.id.content_fragment, WalletFragment())
                         .commit()
                     return@setOnNavigationItemSelectedListener true
                 }

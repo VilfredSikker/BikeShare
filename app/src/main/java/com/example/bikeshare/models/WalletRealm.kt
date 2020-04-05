@@ -21,14 +21,19 @@ open class WalletRealm {
         return this.realm.where<Wallet>().findFirst()
     }
 
-    fun updateBalance(balance: Double) {
+    fun withdrawMoney(amount: Double) {
         this.realm.executeTransaction {
             val wallet = this.realm.where<Wallet>().findFirst()
 
-            if (balance > 0)
-                wallet!!.balance += balance
-            else
-                wallet!!.balance -= balance
+            wallet!!.balance -= amount
+        }
+    }
+
+    fun depositMoney(amount: Double) {
+        this.realm.executeTransaction {
+            val wallet = this.realm.where<Wallet>().findFirst()
+
+            wallet!!.balance += amount
         }
     }
 }

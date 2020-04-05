@@ -23,7 +23,9 @@ import com.example.bikeshare.models.RideRealm
 import com.example.bikeshare.models.WalletRealm
 import kotlinx.android.synthetic.main.fragment_all_rides.*
 import kotlinx.android.synthetic.main.fragment_ride_popop.view.*
+import java.math.RoundingMode
 import java.util.*
+import kotlin.math.roundToLong
 
 class AllRidesFragment : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -75,7 +77,7 @@ class AllRidesFragment : Fragment() {
 
                 rideRealm.updateRide(newRide)
                 bikeRealm.toggleAvailable(newRide.bike!!.id)
-                walletRealm.updateBalance(cost)
+                walletRealm.withdrawMoney(cost)
 
                 setCurrentRideInvisible()
                 val itemIndex = rideRealm.getPreviousRides().indexOf(newRide)
@@ -91,8 +93,14 @@ class AllRidesFragment : Fragment() {
         endTime: Date,
         priceHour: Double
     ): Double {
-        val time = (endTime.time- startTime.time)/(60 * 60 * 1000)
-        return time * priceHour
+        // Difference in seconds
+        val time = (endTime.time- startTime.time) / 1000
+        // 1 second is 0.000277777778 hours based on https://www.convertunits.com/from/seconds/to/hour
+        val timeInHours = time * 0.000277777778
+        val cost = timeInHours * priceHour
+        // Rounding number to two decimals
+        val rounded = cost.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+        return rounded
     }
 
     private fun setCurrentRideInvisible() {
@@ -138,6 +146,7 @@ class AllRidesFragment : Fragment() {
         view.ride_popop_end_location.setText(ride.endLocation)
         view.ride_popop_start_time.setText(TimeHelper.formatDate(ride.startTime!!))
         view.ride_popop_end_time.setText(TimeHelper.formatDate(ride.endTime!!))
+        view.ride_popop_cost.setText(ride.cost.toString())
 
         view.ride_popop_cancel_button.setOnClickListener { popup.dismiss() }
         view.ride_popop_delete_button.setOnClickListener {
