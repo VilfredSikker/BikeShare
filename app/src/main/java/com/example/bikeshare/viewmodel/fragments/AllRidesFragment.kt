@@ -23,6 +23,7 @@ import com.example.bikeshare.models.RideRealm
 import com.example.bikeshare.models.WalletRealm
 import kotlinx.android.synthetic.main.fragment_all_rides.*
 import kotlinx.android.synthetic.main.fragment_ride_popop.view.*
+import java.util.*
 
 class AllRidesFragment : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -56,7 +57,7 @@ class AllRidesFragment : Fragment() {
         val currentRide = rideRealm.currentRide()
         if (currentRide != null) {
             this.all_rides_ride_type.setText(currentRide.bike?.bikeType)
-            this.all_rides_ride_start_time.setText(currentRide.startTime)
+            this.all_rides_ride_start_time.setText(TimeHelper.formatDate(currentRide.startTime!!) )
             this.all_rides_ride_price.setText(currentRide.bike?.priceHour.toString())
 
             this.all_rides_ride_end_ride.setOnClickListener {
@@ -67,22 +68,31 @@ class AllRidesFragment : Fragment() {
                 newRide.id = currentRide.id
                 newRide.active = false
                 newRide.endLocation = locationHelper.getAddress()
-                newRide.endTime = TimeHelper.getCurrentTime()
+                newRide.endTime = TimeHelper.getDate()
+
+                val cost = calculateCost(currentRide.startTime!!, newRide.endTime!!, newRide.bike!!.priceHour)
+                newRide.cost = cost
 
                 rideRealm.updateRide(newRide)
                 bikeRealm.toggleAvailable(newRide.bike!!.id)
+                walletRealm.updateBalance(cost)
+
                 setCurrentRideInvisible()
                 val itemIndex = rideRealm.getPreviousRides().indexOf(newRide)
                 this.viewAdapter.notifyItemChanged(itemIndex)
-
-                val startDate = TimeHelper.getTimeFromString(newRide.startTime)
-                val endDate = TimeHelper.getTimeFromString(newRide.endTime!!)
-
-                val wallet = walletRealm.getWallet()
             }
         } else {
             setCurrentRideInvisible()
         }
+    }
+
+    private fun calculateCost(
+        startTime: Date,
+        endTime: Date,
+        priceHour: Double
+    ): Double {
+        val time = (endTime.time- startTime.time)/(60 * 60 * 1000)
+        return time * priceHour
     }
 
     private fun setCurrentRideInvisible() {
@@ -126,8 +136,8 @@ class AllRidesFragment : Fragment() {
         view.ride_popop_price.setText(ride.bike?.priceHour.toString())
         view.ride_popop_start_location.setText(ride.startLocation)
         view.ride_popop_end_location.setText(ride.endLocation)
-        view.ride_popop_start_time.setText(ride.startTime)
-        view.ride_popop_end_time.setText(ride.endTime)
+        view.ride_popop_start_time.setText(TimeHelper.formatDate(ride.startTime!!))
+        view.ride_popop_end_time.setText(TimeHelper.formatDate(ride.endTime!!))
 
         view.ride_popop_cancel_button.setOnClickListener { popup.dismiss() }
         view.ride_popop_delete_button.setOnClickListener {

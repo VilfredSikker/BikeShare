@@ -2,6 +2,7 @@ package com.example.bikeshare
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bikeshare.models.Wallet
 import com.example.bikeshare.models.WalletRealm
 import com.example.bikeshare.viewmodel.fragments.AddNewFragment
 import com.example.bikeshare.viewmodel.fragments.AllRidesFragment
@@ -10,7 +11,7 @@ import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_bikeshare_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val walletRealm : WalletRealm = WalletRealm()
+    private lateinit var walletRealm : WalletRealm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         Realm.setDefaultConfiguration(config)
 
+        walletRealm = WalletRealm()
         walletRealm.createWallet()
+
         val fragment = this.supportFragmentManager
             .findFragmentById(R.id.content_fragment)
 

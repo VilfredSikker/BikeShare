@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bikeshare.R
+import com.example.bikeshare.helpers.TimeHelper
 import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
 
@@ -39,8 +40,8 @@ class RideAdapter(private var listener: (Ride) -> Unit) :
         if (ride != null) {
             println("onBindViewHolder: $itemCount")
             holder.bikeType.text = ride.bike?.bikeType
-            holder.startTime.text = ride.startTime
-            holder.priceHour.text = ride.bike?.priceHour.toString()
+            holder.startTime.text = TimeHelper.formatDate(ride.startTime!!)
+            holder.priceHour.text = ride.cost.toString()
             holder.setOnClickListener(ride, listener)
         }
     }

@@ -105,7 +105,7 @@ class StartRideFragment : Fragment() {
                         Toast.makeText(requireContext(), "Ride saved", Toast.LENGTH_LONG).show()
 
                         val ride = Ride()
-                        ride.startTime = TimeHelper.getCurrentTime()
+                        ride.startTime = TimeHelper.getDate()
                         ride.bike = selectedBike as Bike
                         ride.startLocation = locationHelper.getAddress()
 
