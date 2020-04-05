@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/ride_popop_image"
         android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_marginBottom="10dp"
         android:contentDescription="@string/ride_symbol"
         app:srcCompat="@drawable/ic_ride" />
@@ -81,16 +81,14 @@
                 android:id="@+id/ride_popop_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
                 android:inputType="textPersonName"
-                android:text="@string/ride_start_time"
+                android:text="2020-04-04 13:23:31"
                 android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/ride_popop_start_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:inputType="textPersonName"
                 android:text="@string/ride_location_placeholder"
                 android:textSize="14sp" />
@@ -122,7 +120,6 @@
                 android:id="@+id/ride_popop_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
                 android:inputType="textPersonName"
                 android:text="@string/ride_end_time"
                 android:textSize="14sp" />
@@ -131,7 +128,6 @@
                 android:id="@+id/ride_popop_end_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:inputType="textPersonName"
                 android:text="@string/ride_location_placeholder"
                 android:textSize="14sp" />

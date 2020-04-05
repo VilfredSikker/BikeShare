@@ -27,6 +27,6 @@
     <string name="selected_bike">Selected Bike</string>
     <string name="available_bikes">Available Bikes</string>
     <string name="bike_start_location">Bike Start Location</string>
-    <string name="ride_location_placeholder">lat: 45.211, lng: 56,2231</string>
+    <string name="ride_location_placeholder">lat: 45.1234567, lng: 56.1234567</string>
     <string name="bike_end_location">Bike End Location</string>
 </resources>

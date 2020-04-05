@@ -20,6 +20,7 @@ import com.example.bikeshare.models.BikeRealm
 import com.example.bikeshare.viewmodel.fragments.adapters.RideAdapter
 import com.example.bikeshare.models.Ride
 import com.example.bikeshare.models.RideRealm
+import com.example.bikeshare.models.WalletRealm
 import kotlinx.android.synthetic.main.fragment_all_rides.*
 import kotlinx.android.synthetic.main.fragment_ride_popop.view.*
 
@@ -28,6 +29,7 @@ class AllRidesFragment : Fragment() {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private var rideRealm: RideRealm = RideRealm()
     private var bikeRealm: BikeRealm = BikeRealm()
+    private var walletRealm: WalletRealm = WalletRealm()
     private lateinit var locationHelper: LocationHelper
 
     override fun onCreateView(
@@ -71,7 +73,12 @@ class AllRidesFragment : Fragment() {
                 bikeRealm.toggleAvailable(newRide.bike!!.id)
                 setCurrentRideInvisible()
                 val itemIndex = rideRealm.getPreviousRides().indexOf(newRide)
-                this.viewAdapter.notifyItemInserted(itemIndex)
+                this.viewAdapter.notifyItemChanged(itemIndex)
+
+                val startDate = TimeHelper.getTimeFromString(newRide.startTime)
+                val endDate = TimeHelper.getTimeFromString(newRide.endTime!!)
+
+                val wallet = walletRealm.getWallet()
             }
         } else {
             setCurrentRideInvisible()

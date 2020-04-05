@@ -33,8 +33,7 @@
             android:id="@+id/bike_layout_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:inputType="textPersonName"
+            android:editable="false"
             android:text="@string/bike_type" />
     </LinearLayout>
 
@@ -56,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:inputType="textPersonName"
+            android:editable="false"
             android:text="@string/bike_price" />
     </LinearLayout>
 

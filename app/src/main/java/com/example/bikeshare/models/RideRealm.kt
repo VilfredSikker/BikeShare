@@ -11,21 +11,13 @@ open class RideRealm {
     fun createRide(ride: Ride){
         ride.id = nextIndex()
 
-        this.realm.beginTransaction()
-        var newRide = realm.copyToRealm(ride)
-        this.realm.commitTransaction()
+        this.realm.executeTransaction {
+            this.realm.copyToRealm(ride)
+        }
     }
 
     fun currentRide() : Ride? {
         return realm.where<Ride>().equalTo("active", true).findFirst()
-    }
-
-    fun toggleActive(ride: Ride) {
-        this.realm.executeTransaction{
-            val realmBike = this.realm.where<Ride>().equalTo("id", ride.id).findFirst()
-            val active = realmBike?.active!!.not()
-            realmBike.active = active
-        }
     }
 
     fun updateRide(ride: Ride) {
